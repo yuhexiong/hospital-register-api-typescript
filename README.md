@@ -1,10 +1,5 @@
 # Hospital Register Api
 
-### Frontend Web - [Accounting Web JavaScript](https://github.com/yuhexiong/accounting-web-vue3-javascript)
-
-Automatically run CronJob to generate last month report on 1st of every month.  
-Automatically generate swagger by comment in router.
-
 ## Overview
 
 - Language: TypeScript
