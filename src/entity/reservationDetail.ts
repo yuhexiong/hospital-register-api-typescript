@@ -1,13 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import ReservationOverview from "./reservationOverview";
-
-export enum Type {
-  ON_SITE = 'onSite',   // 現場號
-  RESERVE = 'reverse',  // 預約號
-  ALL = 'all',          // 不限號
-  NOT = 'not',          // 不給號
-}
-
+import { ReservationType } from "../utils/enum";
 
 @Entity('reservationDetail')
 export default class ReservationDetail {
@@ -23,8 +16,8 @@ export default class ReservationDetail {
   @Column({ type: 'bigint', comment: '看診號' })
   no!: number;
 
-  @Column({ type: 'enum', enum: Type, comment: "給號類別" })
-  type!: Type;
+  @Column({ type: 'enum', enum: ReservationType, comment: "給號類別" })
+  type!: ReservationType;
 
   @Column({ type: 'bigint', nullable: true, comment: '病人id' })
   patientId?: number;

@@ -1,12 +1,6 @@
 import { Column, Entity, Generated, OneToMany } from "typeorm";
 import ReservationDetail from "./reservationDetail";
-
-export enum TimeSlot {
-  MORNING = 'morning',
-  AFTERNOON = 'afternoon',
-  EVENING = 'evening',
-}
-
+import { TimeSlot } from "../utils/enum";
 
 @Entity('reservationOverview')
 export default class ReservationOverview {
@@ -14,7 +8,7 @@ export default class ReservationOverview {
   @Generated('increment')
   id!: number;
 
-  @Column({ type: "varchar", comment: "日期, YYYY-MM-DD", length: 25 })
+  @Column({ type: "varchar", comment: "日期, YYYY-MM-DD", length: 20 })
   date!: string; 
 
   @Column({ type: 'enum', enum: TimeSlot, comment: "時段" })
