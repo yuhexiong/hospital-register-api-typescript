@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import ReservationOverview from "./reservationOverview";
 import { ReservationType } from "../utils/enum";
+import Clinic from "./clinic";
 
 @Entity('reservationDetail')
 export default class ReservationDetail {
@@ -28,5 +29,8 @@ export default class ReservationDetail {
   @ManyToOne(() => ReservationOverview, (ro) => ro.reservationDetails, { onDelete: "RESTRICT", onUpdate: "RESTRICT", })
   @JoinColumn([{ name: "reservationOverviewId", referencedColumnName: "id" }])
   reservationOverview!: ReservationOverview;
+
+  @OneToOne(() => Clinic, (c) => c.reservationDetail)
+  clinic?: Clinic;
 
 }
