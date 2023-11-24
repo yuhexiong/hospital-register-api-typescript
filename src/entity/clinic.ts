@@ -1,6 +1,8 @@
-import { Column, Entity, Generated, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { CardCode, CardCodeWithNumber, CardCodeWithoutNumber, CaseType, MedicalType, Status } from "../utils/enum";
 import ReservationDetail from "./reservationDetail";
+import Patient from "./patient";
+import Doctor from "./doctor";
 
 @Entity('clinic')
 export default class Clinic {
@@ -27,7 +29,7 @@ export default class Clinic {
   cardExceptionCode?: CardCodeWithNumber | CardCodeWithoutNumber;
 
   @Column({ type: "enum", enum: MedicalType, comment: "就醫類別", default: MedicalType.WESTERN_MEDICINE })
-  medicalType!: string;
+  medicalType!: MedicalType;
 
   @Column({ type: "varchar", nullable: true, comment: '就醫序號', length: 20 })
   medicalNumber?: string;
@@ -56,4 +58,12 @@ export default class Clinic {
   @OneToOne(() => ReservationDetail, rd => rd.clinic, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
   @JoinColumn([{ name: 'reservationDetailId', referencedColumnName: 'id' }])
   reservationDetail!: ReservationDetail;
+
+  @ManyToOne(() => Doctor, d => d.clinics, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
+  @JoinColumn([{ name: 'doctorId', referencedColumnName: 'id' }])
+  doctor?: Doctor;
+
+  @ManyToOne(() => Patient, p => p.clinics, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
+  @JoinColumn([{ name: 'patientId', referencedColumnName: 'id' }])
+  patient?: Patient;
 }

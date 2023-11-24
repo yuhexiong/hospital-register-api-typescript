@@ -1,9 +1,10 @@
-import { DataSource } from "typeorm"
-import * as dotenv from 'dotenv'
-import CronJob from "./src/entity/cronJob"
-import Consumption from "./src/entity/consumption"
-import Type from "./src/entity/type"
-import Report from "./src/entity/report"
+import { DataSource } from "typeorm";
+import * as dotenv from 'dotenv';
+import Clinic from "./src/entity/clinic";
+import Doctor from "./src/entity/doctor";
+import Patient from "./src/entity/patient";
+import ReservationOverview from "./src/entity/reservationOverview";
+import ReservationDetail from "./src/entity/reservationDetail";
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
   bigNumberStrings: false,
   synchronize: false,
   logging: true,
-  entities: [CronJob, Consumption, Type, Report],
+  entities: [ Clinic, Doctor, Patient, ReservationOverview, ReservationDetail ],
   migrations: [`src/migrations/*.{ts,js}`],
   subscribers: [],
 })

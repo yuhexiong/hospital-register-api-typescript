@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import ReservationOverview from "./reservationOverview";
 import { ReservationType } from "../utils/enum";
 import Clinic from "./clinic";
+import Patient from "./patient";
 
 @Entity('reservationDetail')
 export default class ReservationDetail {
@@ -11,8 +12,8 @@ export default class ReservationDetail {
   @Column({ type: "datetime", nullable: true, comment: "預約時間" })
   reverseTime?: Date;
 
-  @Column({ type: "varchar", comment: '預約總表id', length: 100 })
-  reservationOverviewId!: string;
+  @Column({ type: "bigint", comment: '預約總表id' })
+  reservationOverviewId!: number;
 
   @Column({ type: 'bigint', comment: '看診號' })
   no!: number;
@@ -33,4 +34,7 @@ export default class ReservationDetail {
   @OneToOne(() => Clinic, (c) => c.reservationDetail)
   clinic?: Clinic;
 
+  @ManyToOne(() => Patient, p => p.reservationDetails, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
+  @JoinColumn([{ name: 'patientId', referencedColumnName: 'id' }])
+  patient?: Patient;
 }

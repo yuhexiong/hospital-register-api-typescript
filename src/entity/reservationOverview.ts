@@ -1,6 +1,7 @@
-import { Column, Entity, Generated, OneToMany } from "typeorm";
+import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import ReservationDetail from "./reservationDetail";
-import { TimeSlot } from "../utils/enum";
+import { Division, TimeSlot } from "../utils/enum";
+import Doctor from "./doctor";
 
 @Entity('reservationOverview')
 export default class ReservationOverview {
@@ -14,8 +15,8 @@ export default class ReservationOverview {
   @Column({ type: 'enum', enum: TimeSlot, comment: "時段" })
   timeSlot!: TimeSlot;
 
-  @Column({ type: "varchar", comment: "科別", length: 25 })
-  division!: string; 
+  @Column({ type: "enum", enum: Division, comment: "科別", default: Division.NOT_SPECIFIED })
+  division!: Division; 
 
   @Column('bigint', { comment: '醫師id' })
   doctorId!: number;
@@ -26,5 +27,8 @@ export default class ReservationOverview {
   @OneToMany(() => ReservationDetail, (rd) => rd.reservationOverview)
   reservationDetails?: ReservationDetail[];
 
+  @ManyToOne(() => Doctor, d => d.clinics, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
+  @JoinColumn([{ name: 'doctorId', referencedColumnName: 'id' }])
+  doctor?: Doctor;
 }
 

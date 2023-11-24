@@ -1,8 +1,44 @@
+// 病人性別
+export enum Gender {
+  MALE = 'M',
+  FEMALE = 'F',
+  UNKNOWN = 'X',
+}
+
 // 預約時段別
 export enum TimeSlot {
   MORNING = 'morning',
   AFTERNOON = 'afternoon',
   EVENING = 'evening',
+}
+
+// 預約科別
+export enum Division {
+  NOT_SPECIFIED = '00',                // 不分科
+  FAMILY_MEDICINE = '01',              // 家醫科
+  INTERNAL_MEDICINE = '02',            // 內科
+  SURGERY = '03',                      // 外科
+  PEDIATRICS = '04',                   // 小兒科
+  OBSTETRICS_GYNECOLOGY = '05',        // 婦產科
+  ORTHOPEDICS = '06',                  // 骨科
+  NEUROSURGERY = '07',                 // 神經外科
+  UROLOGY = '08',                      // 泌尿科
+  ENT = '09',                          // 耳鼻喉科
+  OPHTHALMOLOGY = '10',                // 眼科
+  DERMATOLOGY = '11',                  // 皮膚科
+  NEUROLOGY = '12',                    // 神經科
+  PSYCHIATRY = '13',                   // 精神科
+  REHABILITATION = '14',               // 復健科
+  PLASTIC_SURGERY = '15',              // 整型外科
+  EMERGENCY_MEDICINE = '22',           // 急診醫學科
+  DENTISTRY = '40',                    // 牙科
+  TRADITIONAL_CHINESE_MEDICINE = '60', // 中醫科
+  ANESTHESIOLOGY = '81',               // 麻醉科
+  RADIOLOGY = '82',                    // 放射線科
+  PATHOLOGY = '83',                    // 病理科
+  NUCLEAR_MEDICINE = '84',             // 核醫科
+  TUBERCULOSIS = '2A',                 // 結核科
+  NEPHROLOGY = '2B',                   // 洗腎科
 }
 
 // 預約給號類別
@@ -88,13 +124,12 @@ export enum MedicalType {
 
   PHC_WOMEN_CERVICAL_SMEAR = 'YC', // 婦女子宮頸抹片檢查
   PHC_CHILD_DENTAL = 'YD', // 兒童牙齒預防保健  
-  PHC_CHILD_HEALTH_CHECK_CLINIC = 'YA', // 兒童健檢診所
-  PHC_WOMEN_BREAST_EXAMINATION = 'YE', // 婦女乳房檢查 
-  PHC_CHILD_HEALTH_CHECK_HOSPITAL = 'YA', // 兒童健檢醫院
-  PHC_PREGNANT_EXAMINATION_CLINIC = 'XA', // 孕婦產檢院所
+  PHC_CHILD_HEALTH_CHECK = 'YA', // 兒童健檢診所和醫院
+  PHC_WOMEN_BREAST = 'YE', // 婦女乳房檢查 
+  PHC_PREGNANT = 'XA', // 孕婦產檢院所
   PHC_ADULT_HEALTH_CHECK = 'YB', // 成人預防保健
-  PHC_FLU_VACCINE_65_YEARS_OLD = 'YF', // 65歲老人流感疫苗 
-  PHC_QUANTITATIVE_FECAL_OCCULT_BLOOD_TEST = 'YG', // 定量免疫法糞便潛血檢查
+  PHC_FLU_65_YEARS_OLD = 'YF', // 65歲老人流感疫苗 
+  PHC_FECAL = 'YG', // 定量免疫法糞便潛血檢查
   PHC_ORAL_EXAMINATION = 'YH', // 口腔黏膜檢查
 }
 
