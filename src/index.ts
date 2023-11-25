@@ -5,6 +5,7 @@ import expressJSDocSwagger from 'express-jsdoc-swagger';
 import { AppDataSource } from "../dataSource";
 import swaggerOption from "./config/swagger";
 import { responseHandler } from "./middlewares/errorHandling";
+import PatientRouter from './routers/patientRouter';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -14,6 +15,12 @@ app.use(express.json());
 expressJSDocSwagger(app)(swaggerOption);
 
 app.use(cors());
+
+const mountApiRouters = (mountPath: string, app: express.Express) => {
+  app.use(mountPath, new PatientRouter().expressRouter())
+}
+
+mountApiRouters('', app);
 
 app.use(responseHandler);
 

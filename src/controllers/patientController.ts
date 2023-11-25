@@ -26,11 +26,27 @@ export default class PatientController {
    * @returns 
    */
   public static async createPatient(option: CreatePatientOption) {
+    const { name, birthday, gender, email, phone } = option;
+
     return await AppDataSource.createQueryBuilder()
       .insert()
       .into(Patient)
-      .values(option)
+      .values({ name, birthday, gender: gender ?? Gender.UNKNOWN, email, phone })
       .execute();
+  }
+
+  /**
+   * 由姓名取得符合的病人, 支援正規表達式搜尋
+   * @param patientName 
+   * @returns 
+   */
+  public static async getPatientByName(patientName: string) {
+    const patients = await AppDataSource.getRepository(Patient)
+      .createQueryBuilder('patient')
+      .where('patient.name REGEXP :name', { name: patientName })
+      .getMany();
+
+    return patients;
   }
 
   /**
@@ -49,20 +65,6 @@ export default class PatientController {
     }
 
     return patient;
-  }
-
-  /**
-   * 由姓名取得符合的病人, 支援模糊搜尋
-   * @param patientName 
-   * @returns 
-   */
-  public static async getPatientByName(patientName: string) {
-    const patients = await AppDataSource.getRepository(Patient)
-      .createQueryBuilder('patient')
-      .where('patient.name LIKE :name', { name: patientName })
-      .getMany();
-
-    return patients;
   }
 
   /**

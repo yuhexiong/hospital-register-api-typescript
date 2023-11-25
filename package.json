@@ -23,7 +23,7 @@
       "typeorm": "^0.3.12"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "nodemon src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
       "migration:create": "typeorm-ts-node-commonjs migration:create src/migrations/new-migration",
       "migration:generate": "typeorm-ts-node-commonjs migration:generate -d dataSource.ts src/migrations/new-migration",

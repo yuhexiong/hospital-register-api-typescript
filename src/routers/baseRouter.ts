@@ -22,7 +22,7 @@ export default abstract class BaseRouter {
   protected init() { }
   protected mountRoutes() { }
 
-  protected routeWithValidate(method: Method, path: string, handler: any, validateRules: any) {
+  protected route(method: Method, path: string, handler: any, validateRules: any) {
     this.router[method](
       path,
       validateRules,
