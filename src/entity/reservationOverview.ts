@@ -18,8 +18,8 @@ export default class ReservationOverview {
   @Column({ type: "enum", enum: Division, comment: "科別", default: Division.NOT_SPECIFIED })
   division!: Division; 
 
-  @Column('bigint', { comment: '醫師id' })
-  doctorId!: number;
+  @Column({ type: "varchar", comment: "醫師工號", length: 20 })
+  doctorId!: string;
 
   @Column({ type: "boolean", comment: "是否開放預約", default: true })
   canReverse!: boolean;

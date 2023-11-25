@@ -37,8 +37,8 @@ export default class Clinic {
   @Column({ type: "enum", enum: CaseType, comment: "案件別", default: CaseType.OTHER })
   caseType!: CaseType;
 
-  @Column('bigint', { comment: '醫師id' })
-  doctorId!: number;
+  @Column({ type: "varchar", comment: "醫師工號", length: 20 })
+  doctorId!: string;
 
   @Column({ type: 'bigint', nullable: true, comment: '病人id' })
   patientId?: number;
