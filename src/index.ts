@@ -6,6 +6,7 @@ import { AppDataSource } from "../dataSource";
 import swaggerOption from "./config/swagger";
 import { responseHandler } from "./middlewares/errorHandling";
 import PatientRouter from './routers/patientRouter';
+import DoctorRouter from './routers/doctorRouter';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 const mountApiRouters = (mountPath: string, app: express.Express) => {
   app.use(mountPath, new PatientRouter().expressRouter())
+  app.use(mountPath, new DoctorRouter().expressRouter())
 }
 
 mountApiRouters('', app);
