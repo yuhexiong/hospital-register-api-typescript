@@ -79,8 +79,8 @@ export default class DoctorRouter extends BaseRouter {
   }
 
   /**
-   * PATCH /doctor/{id}
-   * @summary 修改一位醫師
+   * PATCH /doctor/{id}/{name}
+   * @summary 修改一位醫師名字
    * @tags doctor 醫師
    * @param { string } id.param.required - 醫師工號
    * @param { string } name.name.required - 姓名

@@ -49,6 +49,12 @@ export enum ReservationType {
   NOT = 'not',          // 不給號
 }
 
+// 預約來源
+export enum ReservationFrom {
+  ON_SITE = 'onSite', // 現場
+  NET = 'net',        // 網路
+}
+
 // 有就醫序號的卡片異常代碼
 export enum CardCodeWithNumber {
   EQUIPMENT_FAILURE = 'A001',        // 讀卡設備故障
