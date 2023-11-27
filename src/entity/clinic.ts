@@ -10,8 +10,8 @@ export default class Clinic {
   @Generated('increment')
   id!: number;
 
-  @Column({ type: "varchar", comment: '預約細項id', length: 100 })
-  reservationDetailId!: string;
+  @Column({ type: "bigint", comment: '預約細項id' })
+  reservationDetailId!: number;
 
   @Column({ type: "varchar", comment: '門診日期, YYYY-MM-DD', length: 20 })
   date!: string;

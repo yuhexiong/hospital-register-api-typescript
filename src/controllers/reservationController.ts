@@ -59,7 +59,7 @@ export default class ReservationController {
       reservationDetails.push({
         reservationOverviewId: reservationOverview.generatedMaps[0].id,
         no: i + 1,
-        type: types.length >= i + 1 // 提供的給號類別不足時以defaultType加入
+        type: (types?.length ?? 0) >= i + 1 // 提供的給號類別不足時以defaultType加入
           ? (!canReverse && types[i] === ReservationType.RESERVE ? ReservationType.ON_SITE : types[i]) // 如果不能預約卻有預約號, 則改為現場號
           : defaultType,
       })

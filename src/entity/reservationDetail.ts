@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import ReservationOverview from "./reservationOverview";
 import { ReservationType } from "../utils/enum";
 import Clinic from "./clinic";
@@ -6,8 +6,9 @@ import Patient from "./patient";
 
 @Entity('reservationDetail')
 export default class ReservationDetail {
-  @Column("varchar", { primary: true, comment: "id", length: 20, })
-  id!: string;
+  @Column("bigint", { primary: true, comment: "流水號", })
+  @Generated('increment')
+  id!: number;
 
   @Column({ type: "datetime", nullable: true, comment: "預約時間" })
   reverseTime?: Date;
