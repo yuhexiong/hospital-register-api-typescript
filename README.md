@@ -71,7 +71,7 @@ npm run start
 
 ### reservation
 
-- POST `/reservation/list`：新增一張預約班表, 預設可預約, 總看診號50, 不足的給號類別依是否可預約給現場號或預約號
-- POST `/reservation`：預約門診, 依給號類別和預約來源決定是否預約成功
-- GET /`reservation/{year}/{month}`：取得指定月分所有預約班表
-- PATCH` /reservation/{reservationDetailId}/{type}`：修改預約給號類別
+- `POST /reservation/list`：新增一張預約班表, 預設可預約, 總看診號50, 不足的給號類別依是否可預約給預設
+- `POST /reservation`：預約門診, 依給號類別和預約來源決定是否預約成功
+- `GET /reservation/{year}/{month}`：取得指定月分所有預約班表
+- `PATCH /reservation/{reservationDetailId}/{type}`：修改預約給號類別

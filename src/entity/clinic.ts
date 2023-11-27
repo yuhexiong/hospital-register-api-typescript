@@ -22,26 +22,29 @@ export default class Clinic {
   @Column({ type: 'datetime', nullable: true, comment: '完診時間' })
   finishTime?: Date;
 
+  @Column({ type: "boolean", comment: '是否掛健保, true=健保, false=自費', default: false })
+  isNhi!: boolean;
+
   @Column({ type: "boolean", comment: '是否有健保卡', default: false })
   hasIcCard!: boolean;
 
   @Column({ type: "enum", enum: CardCode, comment: "卡片異常代碼" })
   cardExceptionCode?: CardCodeWithNumber | CardCodeWithoutNumber;
 
-  @Column({ type: "enum", enum: MedicalType, comment: "就醫類別", default: MedicalType.WESTERN_MEDICINE })
-  medicalType!: MedicalType;
+  @Column({ type: "enum", enum: MedicalType, nullable: true, comment: "就醫類別" })
+  medicalType?: MedicalType;
 
   @Column({ type: "varchar", nullable: true, comment: '就醫序號', length: 20 })
   medicalNumber?: string;
 
-  @Column({ type: "enum", enum: CaseType, comment: "案件別", default: CaseType.OTHER })
-  caseType!: CaseType;
+  @Column({ type: "enum", enum: CaseType, nullable: true, comment: "案件別", default: CaseType.OTHER })
+  caseType?: CaseType;
 
   @Column({ type: "varchar", comment: "醫師工號", length: 20 })
   doctorId!: string;
 
-  @Column({ type: 'bigint', nullable: true, comment: '病人id' })
-  patientId?: number;
+  @Column({ type: 'bigint', nullable: false, comment: '病人id' })
+  patientId: number;
 
   @Column({ type: "varchar", comment: 'soap', length: 300 })
   soap?: string;
