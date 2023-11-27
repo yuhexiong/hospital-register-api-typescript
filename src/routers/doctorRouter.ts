@@ -83,7 +83,7 @@ export default class DoctorRouter extends BaseRouter {
    * @summary 修改一位醫師名字
    * @tags doctor 醫師
    * @param { string } id.param.required - 醫師工號
-   * @param { string } name.name.required - 姓名
+   * @param { string } name.param.required - 姓名
    * @return { object } 200 - success - application/json
    * @example response - 200 - success
    * {

@@ -30,7 +30,7 @@ export default class ReservationController {
    */
   public static async createReservationList(option: CreateReservationListOption) {
     const {
-      date, timeSlot, division, doctorId, canReverse,
+      date, timeSlot, division, doctorId, canReverse = true,
       totalNo = 50, types // 預設一個預約班表開50號
     } = option;
 
