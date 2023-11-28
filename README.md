@@ -75,3 +75,14 @@ npm run start
 - `POST /reservation`：預約門診, 依給號類別和預約來源決定是否預約成功
 - `GET /reservation/{year}/{month}`：取得指定月分所有預約班表
 - `PATCH /reservation/{reservationDetailId}/{type}`：修改預約給號類別
+
+### clinic
+
+- `POST /clinic/register`：掛號
+- `GET /clinic/{id}`：由id取得門診
+- `POST /clinic/start/{id}`：開始看診或重新看診
+- `PATCH /clinic/{id}`：更新主訴與觀察
+- `POST /clinic/finish/{id}`：完診, 未開始看診則不能完診
+- `POST /clinic/paid/{id}`：批價繳費, 未完診則不能完診
+- `POST /clinic/unregister/{id}`：退掛, 已批價則不能退掛
+- `GET /clinic/patient/{patientId}`：取得指定病人指定區間所有門診, 並顯示是否有欠款

@@ -8,6 +8,7 @@ import { responseHandler } from "./middlewares/errorHandling";
 import PatientRouter from './routers/patientRouter';
 import DoctorRouter from './routers/doctorRouter';
 import ReservationRouter from './routers/reservationRouter';
+import ClinicRouter from './routers/clinicRouter';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -22,6 +23,7 @@ const mountApiRouters = (mountPath: string, app: express.Express) => {
   app.use(mountPath, new PatientRouter().expressRouter())
   app.use(mountPath, new DoctorRouter().expressRouter())
   app.use(mountPath, new ReservationRouter().expressRouter())
+  app.use(mountPath, new ClinicRouter().expressRouter())
 }
 
 mountApiRouters('', app);

@@ -28,7 +28,7 @@ export default class Clinic {
   @Column({ type: "boolean", comment: '是否有健保卡', default: false })
   hasIcCard!: boolean;
 
-  @Column({ type: "enum", enum: CardCode, comment: "卡片異常代碼" })
+  @Column({ type: "enum", enum: CardCode, nullable: true, comment: "卡片異常代碼" })
   cardExceptionCode?: CardCodeWithNumber | CardCodeWithoutNumber;
 
   @Column({ type: "enum", enum: MedicalType, nullable: true, comment: "就醫類別" })
@@ -46,7 +46,7 @@ export default class Clinic {
   @Column({ type: 'bigint', nullable: false, comment: '病人id' })
   patientId: number;
 
-  @Column({ type: "varchar", comment: 'soap', length: 300 })
+  @Column({ type: "varchar", nullable: true, comment: 'soap', length: 300 })
   soap?: string;
 
   @Column({ type: "enum", enum: Status, comment: "門診狀態", default: Status.REGISTER })
