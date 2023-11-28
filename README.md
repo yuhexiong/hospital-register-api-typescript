@@ -86,3 +86,14 @@ npm run start
 - `POST /clinic/paid/{id}`：批價繳費, 未完診則不能完診
 - `POST /clinic/unregister/{id}`：退掛, 已批價則不能退掛
 - `GET /clinic/patient/{patientId}`：取得指定病人指定區間所有門診, 並顯示是否有欠款
+
+## Custom Error Code
+
+```
+SUCCESSFUL = 0
+INSUFFICIENT_DATA = '000107'
+INVALID_PARAMETER = '000108'
+COLUMN_MISMATCH = '000109'
+INVALID_TYPE_RESERVATION = '000120'
+INVALID_STATUS_CLINIC = '000121'
+```

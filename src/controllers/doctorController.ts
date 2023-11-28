@@ -1,5 +1,6 @@
 import { AppDataSource } from "../../dataSource";
 import Doctor from "../entity/doctor";
+import { MyError } from "../utils/errorMessage";
 
 interface CreateDoctorOption {
   id: string;
@@ -21,7 +22,7 @@ export default class DoctorController {
       .getOne();
 
     if (doctor) {
-      throw new Error(`doctorId ${id} exists`);
+      throw new MyError(MyError.INVALID_PARAMETER, `doctorId ${id} exists`);
     }
 
     return await AppDataSource.createQueryBuilder()
@@ -43,7 +44,7 @@ export default class DoctorController {
       .getOne();
 
     if (!doctor) {
-      throw new Error(`doctor ${doctorId} not found`);
+      throw new MyError(MyError.INVALID_PARAMETER, `doctor ${doctorId} not found`);
     }
 
     return doctor;

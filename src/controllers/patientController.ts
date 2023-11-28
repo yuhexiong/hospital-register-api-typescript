@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../dataSource";
 import Patient from "../entity/patient";
 import { Gender } from "../utils/enum";
+import { MyError } from "../utils/errorMessage";
 import { removeUndefined } from "../utils/orm";
 
 interface CreatePatientOption {
@@ -61,7 +62,7 @@ export default class PatientController {
       .getOne();
 
     if (!patient) {
-      throw new Error(`patient ${patientId} not found`);
+      throw new MyError(MyError.INVALID_PARAMETER, `patient ${patientId} not found`);
     }
 
     return patient;

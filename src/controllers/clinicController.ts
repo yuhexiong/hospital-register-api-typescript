@@ -2,6 +2,7 @@ import { AppDataSource } from "../../dataSource";
 import Clinic from "../entity/clinic";
 import ReservationDetail from "../entity/reservationDetail";
 import { CardCodeWithNumber, CardCodeWithoutNumber, CaseType, MedicalType, Status } from "../utils/enum";
+import { MyError } from "../utils/errorMessage";
 import { removeUndefined } from "../utils/orm";
 
 interface RegisterOption {
@@ -48,16 +49,17 @@ export default class ClinicController {
       .getOne();
 
     if (!reservationDetail) {
-      throw new Error(`reservationDetail ${reservationDetailId} does not exist`);
+      throw new MyError(MyError.INVALID_PARAMETER, `reservationDetail ${reservationDetailId} does not exist`);
     }
 
     // 如果已有預約且不是該病患
     if (reservationDetail.patientId && reservationDetail.patientId !== patientId) {
-      throw new Error(`reservationDetail ${reservationDetailId} has been reserved by patient ${reservationDetail.patientId}`);
+      throw new MyError(MyError.COLUMN_MISMATCH, `reservationDetail ${reservationDetailId} has been reserved by patient ${reservationDetail.patientId}`);
     }
 
     if (isNhi && !medicalType) {
-      throw new Error('Should provide medicalType for nhi register');
+
+      throw new MyError(MyError.INSUFFICIENT_DATA, 'Should provide medicalType for nhi register');
     }
 
     return await AppDataSource.createQueryBuilder()
@@ -94,7 +96,7 @@ export default class ClinicController {
       .getOne();
 
     if (!clinic) {
-      throw new Error(`clinic ${clinicId} does not exist`);
+      throw new MyError(MyError.INVALID_PARAMETER, `clinic ${clinicId} does not exist`);
     }
 
     return clinic;
@@ -112,7 +114,7 @@ export default class ClinicController {
 
     // 已退掛則不能重新看診
     if (clinic.status === Status.UNREGISTER) {
-      throw new Error('clinic already unregister');
+      throw new MyError(MyError.INVALID_STATUS_CLINIC, 'clinic already unregister');
     }
 
     return await AppDataSource.getRepository(Clinic)
@@ -152,7 +154,7 @@ export default class ClinicController {
     const clinic = await this.getClinic(clinicId);
 
     if (clinic.status !== Status.CLINIC) {
-      throw new Error('clinic not start');
+      throw new MyError(MyError.INVALID_STATUS_CLINIC, 'clinic not start');
     }
 
     return await AppDataSource.getRepository(Clinic)
@@ -179,17 +181,17 @@ export default class ClinicController {
     const clinic = await this.getClinic(clinicId);
 
     if (clinic.status !== Status.COMPLETE) {
-      throw new Error('clinic not complete');
+      throw new MyError(MyError.INVALID_STATUS_CLINIC, 'clinic not complete');
     }
 
     // 如果最終選擇健保, 或最初就選健保且不更改
     if (isNhi || (isNhi === undefined && clinic.isNhi)) {
       if (!medicalType && !clinic.medicalType) {
-        throw new Error('Should provide medicalType for nhi');
+        throw new MyError(MyError.INSUFFICIENT_DATA, 'Should provide medicalType for nhi');
       }
 
       if (!caseType && !clinic.caseType) {
-        throw new Error('Should provide caseType for nhi');
+        throw new MyError(MyError.INSUFFICIENT_DATA, 'Should provide caseType for nhi');
       }
     }
 
@@ -219,7 +221,7 @@ export default class ClinicController {
     const clinic = await this.getClinic(clinicId);
 
     if (clinic.status === Status.PAID) {
-      throw new Error('clinic already paid');
+      throw new MyError(MyError.INVALID_STATUS_CLINIC, 'clinic already paid');
     }
 
     return await AppDataSource.getRepository(Clinic)

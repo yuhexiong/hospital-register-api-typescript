@@ -4,6 +4,7 @@ import ReservationDetail from "../entity/reservationDetail";
 import ReservationOverview from "../entity/reservationOverview";
 import { Division, ReservationFrom, ReservationType, TimeSlot } from "../utils/enum";
 import PatientController from "./patientController";
+import { MyError } from "../utils/errorMessage";
 
 interface CreateReservationListOption {
   date: string;
@@ -43,7 +44,7 @@ export default class ReservationController {
 
     // 已有同天同時段同醫師則不能新增
     if (reservationOverviewBefore) {
-      throw new Error(`reservationOverview ${date}, ${timeSlot}, ${doctorId} exists`);
+      throw new MyError(MyError.INVALID_PARAMETER, `reservationOverview ${date}, ${timeSlot}, ${doctorId} exists`);
     }
 
     const reservationOverview = await AppDataSource.createQueryBuilder()
@@ -90,22 +91,22 @@ export default class ReservationController {
       .getOne();
 
     if (!reservationDetail) {
-      throw new Error(`Invalid reservationDetailId ${reservationDetailId}`);
+      throw new MyError(MyError.INVALID_PARAMETER, `Invalid reservationDetailId ${reservationDetailId}`);
     }
 
     // 預約總表設定不能預約
     if (reservationDetail.reservationOverview.canReverse === false) {
-      throw new Error(`reservationOverview ${reservationDetail.reservationOverviewId} can not be reserved`);
+      throw new MyError(MyError.INVALID_TYPE_RESERVATION, `reservationOverview ${reservationDetail.reservationOverviewId} can not be reserved`);
     }
 
     // 不給號
     if (reservationDetail.type === ReservationType.NOT) {
-      throw new Error(`reservationDetail ${reservationDetailId} is type not`);
+      throw new MyError(MyError.INVALID_TYPE_RESERVATION, `reservationDetail ${reservationDetailId} is type not`);
     }
 
     // 現場號但是從網路預約
     if (reservationDetail.type === ReservationType.ON_SITE && from === ReservationFrom.NET) {
-      throw new Error(`reservationDetail ${reservationDetailId} can only be reserved on site`);
+      throw new MyError(MyError.INVALID_TYPE_RESERVATION, `reservationDetail ${reservationDetailId} can only be reserved on site`);
     }
 
     return await AppDataSource.getRepository(ReservationDetail)
