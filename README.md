@@ -52,7 +52,7 @@ npm run start
 ```
 
 ## ER Diagram
-![image](https://github.com/yuhexiong/accounting-api-typescript/blob/main/image/hospital_register_schema.png)
+![image](https://github.com/yuhexiong/hospital-register-api-typescript/blob/main/image/hospital_register_schema.png)
 
 
 ## API
